@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ensta/in104/repository/inc/CheckPoint.h
+SFML/Graphics.hpp
+-
+
+/home/ensta/in104/repository/inc/fonctions.h
+SFML/Graphics.hpp
+-
+
+/home/ensta/in104/repository/src/main.cpp
+SFML/Graphics.hpp
+-
+SFML/System/Vector2.hpp
+-
+SFML/Graphics/Sprite.hpp
+-
+cmath
+-
+iostream
+-
+thread
+-
+CheckPoint.h
+/home/ensta/in104/repository/src/CheckPoint.h
+fonctions.h
+/home/ensta/in104/repository/src/fonctions.h
+

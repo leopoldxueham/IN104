@@ -1,0 +1,1 @@
+clang++-11  -g   CMakeFiles/sfml-app.dir/src/CheckPoint.cpp.o CMakeFiles/sfml-app.dir/src/example.cpp.o CMakeFiles/sfml-app.dir/src/fonctions.cpp.o CMakeFiles/sfml-app.dir/src/main.cpp.o  -o sfml-app  -lsfml-graphics -lsfml-window -lsfml-system 
