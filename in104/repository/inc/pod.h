@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include <cmath>
 
+// déclaration des classes "Game" et "Pod"
 class Game;
 
 struct Decision
