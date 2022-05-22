@@ -8,48 +8,57 @@
 #include "fonctions.h"
 #define PI 3.1415927
 
-int near(float ciblex,float cibley,sf::Vector2f pos,float distance){
-    float norme=sqrt((pos.x-ciblex)*(pos.x-ciblex)+(pos.y-cibley)*(pos.y-cibley));
-    return norme<distance;
-}
-float mod(float x,float pi){
-    float val;
-    if (x<0){val=fmod(-x,pi);}
-    else {val=fmod(x,pi);}
-    if (val>pi/2){val-=pi;}
-    if (val<-pi/2){val+=pi;}
-    if (x<0){val=-val;}
-    return val;
-}
+    int near(float ciblex,float cibley,sf::Vector2f pos,float distance){
+        float norme=sqrt((pos.x-ciblex)*(pos.x-ciblex)+(pos.y-cibley)*(pos.y-cibley));
+        return norme<distance;
+    }
 
-float vect2rad(sf::Vector2f vect){
-    float angle ;
-    if (vect.x==0) {
-        if (vect.y>0) {angle=PI/2;}
-        else{angle=-PI/2;}
+//
+    float mod(float x,float pi){
+        float val;
+        if (x<0){val=fmod(-x,pi);}
+        else {val=fmod(x,pi);}
+        if (val>pi/2){val-=pi;}
+        if (val<-pi/2){val+=pi;}
+        if (x<0){val=-val;}
+        return val;
     }
-    if(vect.x>0){
-        angle = std::atan(vect.y/vect.x);
+
+// Fonction qui donne l'angle d'un vecteur en radians
+    float vect2rad(sf::Vector2f vect){
+        float angle ;
+        if (vect.x==0) {
+            if (vect.y>0) {angle=PI/2;}
+            else{angle=-PI/2;}
+        }
+        if(vect.x>0){
+            angle = std::atan(vect.y/vect.x);
+        }
+        if(vect.x<0){
+            angle = std::atan(vect.y/vect.x);
+            if (vect.y>0) {angle+=PI;}
+            else{angle-=PI;}
+        }
+        return fmod(angle,2*PI);
     }
-    if(vect.x<0){
-        angle = std::atan(vect.y/vect.x);
-        if (vect.y>0) {angle+=PI;}
-        else{angle-=PI;}
+
+// Donne l'angle en degrés
+    float vect2deg(sf::Vector2f vect){
+        return vect2rad(vect)*180/PI;
     }
-    return fmod(angle,2*PI);
-}
-float vect2deg(sf::Vector2f vect){
-    return vect2rad(vect)*180/PI;
-}
-float vect2dist(sf::Vector2f vect){
-    float dist=sqrt(vect.x*vect.x+vect.y*vect.y);
-    return dist;
-}
-float puissance(float dist,float distfr,float angsuivant){
-    float p=100;
-    if(dist<distfr){p=p*(1-sin(std::abs(angsuivant))*((distfr-dist)/distfr));}
-    return p;    
-}
+
+//Mesure la distance entre deux points grâce à la norme du vecteur reliant ces deux points
+    float vect2dist(sf::Vector2f vect){
+        float dist=sqrt(vect.x*vect.x+vect.y*vect.y);
+        return dist;
+    }
+
+//
+    float puissance(float dist,float distfr,float angsuivant){
+        float p=100;
+        if(dist<distfr){p=p*(1-sin(std::abs(angsuivant))*((distfr-dist)/distfr));}
+        return p;    
+    }
 
 
 
@@ -73,6 +82,7 @@ int main()
     // rectangle.setOrigin(50.f,50.f);
     // rectangle.setPosition(10000.f,2000.f);
 
+    //choix des vaisseaux
     sf::Texture vaisseau1Texture;
     vaisseau1Texture.loadFromFile("../repository/Images/SWAnakinsPod.png");
     sf::Sprite vaisseau1;
@@ -117,6 +127,7 @@ int main()
     float CIBLEX[18]={10000,14000,9000,5000,1500,1000,10000,14000,9000,5000,1500,1000,10000,14000,9000,5000,1500,1000};
     float CIBLEY[18]={2000,7000,6000,8000,5000,1000,2000,7000,6000,8000,5000,1000,2000,7000,6000,8000,5000,1000};
 
+    // création des checkpoints (arbitrairement)
     CheckPoint ch0(1000,1000,0);
     CheckPoint ch1(10000,2000,1);
     CheckPoint ch2(14000,7000,2);
@@ -124,6 +135,7 @@ int main()
     CheckPoint ch4(5000,8000,4);
     CheckPoint ch5(1500,5000,5);
 
+    
     sf::Time elapsed1 = clock.getElapsedTime();
     sf::Time elapsed2 = clock.getElapsedTime();
     sf::Time elapsed3 = clock.getElapsedTime();
@@ -159,6 +171,9 @@ int main()
     sf::Vector2f U4(0,0);
     sf::Vector2f Uplus4(0,0);
     // float Cangle3=1.5;
+    
+    
+    //affichage des FPS
     sf::Font font;
         if (!font.loadFromFile("../repository/Fredoka-Bold.ttf"))
         {
@@ -176,6 +191,8 @@ int main()
 
     clock.restart();
 
+    
+    //Boucle d'affichage de l'interface graphique
     while (window.isOpen())
     {   
         if(1==1){
@@ -201,7 +218,12 @@ int main()
         }
         window.clear();
         window.draw(background);
+        
+        
+        
         //======================================= V1 ==============================
+        
+        
         U=vaisseau1.getPosition();
         if(near(ciblex,cibley,U,600)==1){
             icible++;
@@ -270,6 +292,8 @@ int main()
         Vmoin2=Vplus2;
         vaisseau2.setPosition(Uplus2);
         vaisseau2.setRotation(vect2deg(Vplus2));
+        
+        
 
 //========================================================= v3 =============================================
         // U3=vaisseau3.getPosition();
