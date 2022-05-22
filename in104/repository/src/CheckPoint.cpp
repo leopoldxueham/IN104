@@ -3,6 +3,8 @@
 #include <SFML/Graphics/Color.hpp>
 #include "fonctions.h"
 
+
+//Initialisation avec la position et le numéro du checkpoint
 CheckPoint::CheckPoint() {
     posx_=0.;
     posy_=0.;
@@ -21,6 +23,7 @@ void CheckPoint::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(circle, states);
 
     if(num_==0){
+        // Gestion du départ : affichage différent et position en haut à gauche de la fenêtre
         sf::Texture vaisseau1Texture;
         vaisseau1Texture.loadFromFile("../repository/Images/checkeredFlag.png");
         sf::Sprite flag;
@@ -31,7 +34,8 @@ void CheckPoint::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     }
 
     else{
-        //============ a changer pour mettre en global =====
+        
+        // Notons qu'il serait préférable d'avoir cette variable comme variable globale afin de ne pas recharger la police à chaque fois
         sf::Font font;
         if (!font.loadFromFile("../repository/Fredoka-Bold.ttf"))
         {
